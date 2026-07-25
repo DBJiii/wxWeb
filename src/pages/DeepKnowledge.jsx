@@ -56,6 +56,7 @@ function DeepKnowledge() {
             image={entry.image}
             description={entry.description}
             url={entry.url}
+            defaultExpanded
           />
         ))}
       </div>
