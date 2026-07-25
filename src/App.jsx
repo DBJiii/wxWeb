@@ -1,6 +1,6 @@
-import { Outlet } from 'react-router-dom'
-import Container from 'react-bootstrap/Container'
-import './App.css'
+import { Outlet } from "react-router-dom";
+import Container from "react-bootstrap/Container";
+import "./App.css";
 
 function App() {
   return (
@@ -13,11 +13,11 @@ function App() {
       {/* Footer */}
       <footer className="bg-dark text-white text-center py-4">
         <Container>
-          <p className="mb-0">&copy; 2026 wxWeb. Built with ❤️</p>
+          <p className="mb-0">&copy; 2026 wxWeb. Built for duty</p>
         </Container>
       </footer>
     </div>
-  )
+  );
 }
 
-export default App
+export default App;
