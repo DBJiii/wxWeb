@@ -38,8 +38,8 @@ function Entry({ title, items, level = 1, url }) {
           <span className={`entry-chevron ${expanded ? 'expanded' : ''}`}>▶</span>
         )}
       </div>
-      {expanded && isBranch && (
-        <div className="entry-children">
+      <div className={`entry-children ${expanded ? 'open' : ''}`}>
+        <div className="entry-children-inner">
           {items.map((child) => (
             <Entry
               key={child.id}
@@ -50,7 +50,7 @@ function Entry({ title, items, level = 1, url }) {
             />
           ))}
         </div>
-      )}
+      </div>
     </div>
   )
 }
