@@ -1,8 +1,8 @@
 import { useState } from 'react'
 import './WikiEntry.css'
 
-function WikiEntry({ title, image, description, url }) {
-  const [expanded, setExpanded] = useState(false)
+function WikiEntry({ title, image, description, url, defaultExpanded = false }) {
+  const [expanded, setExpanded] = useState(defaultExpanded)
 
   return (
     <div className="wiki-entry">
