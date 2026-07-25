@@ -1,16 +1,28 @@
-# React + Vite
+# wxWeb
 
-This template provides a minimal setup to get React working in Vite with HMR and some Oxlint rules.
+Science education platform built with React + Vite.
 
-Currently, two official plugins are available:
+## Pages
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+| Page | Path | Description |
+|---|---|---|
+| 课程资源 | `/courses` | Hierarchical catalog of learning resources (CS, Math, AI, Physics) |
+| 知识深入 | `/deep` | Expandable wiki-style entries on chemistry topics |
+| 科学资讯 | `/news` | Latest science news from Nature, displayed as wiki entries |
+| 知识问答 | `/qa` | Q&A (coming soon) |
 
-## React Compiler
+## Tech Stack
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+- **React 19** with React Router 7
+- **Vite** for build tooling
+- **Bootstrap 5** + React Bootstrap
+- News fetched client-side from [rss2json](https://rss2json.com/) API
 
-## Expanding the Oxlint configuration
+## Getting Started
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and Oxlint's TypeScript related rules in your project.
+```bash
+npm install
+npm run dev      # Start dev server at localhost:5173
+npm run build    # Production build to dist/
+npm run preview  # Preview production build
+```
