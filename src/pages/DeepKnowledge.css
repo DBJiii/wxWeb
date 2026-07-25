@@ -1,3 +1,16 @@
 .deep-knowledge {
-  /* Mobile-first styles */
+  padding: 40px 0 60px 0;
+}
+
+.deep-knowledge-title {
+  text-align: center;
+  font-size: 1.75rem;
+  font-weight: 700;
+  margin-bottom: 28px;
+  color: #222;
+}
+
+.deep-knowledge-list {
+  max-width: 720px;
+  margin: 0 auto;
 }
