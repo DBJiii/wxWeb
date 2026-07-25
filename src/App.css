@@ -1,27 +1,11 @@
 /* Mobile-first base styles */
-.feature-icon {
-  font-size: 2.5rem;
-  line-height: 1;
+
+/* App background */
+body {
+  background: url('./assets/background.webp') no-repeat center center fixed;
+  background-size: cover;
 }
 
-/* Smooth scroll for anchor links */
 html {
   scroll-behavior: smooth;
-}
-
-/* ---- Mobile-first breakpoints (min-width) ---- */
-
-/* Small devices (≥576px) */
-@media (min-width: 576px) {
-  .feature-icon {
-    font-size: 3rem;
-  }
-}
-
-/* Large devices (≥992px) */
-@media (min-width: 992px) {
-  header.py-5 {
-    padding-top: 6rem !important;
-    padding-bottom: 6rem !important;
-  }
 }
