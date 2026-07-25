@@ -1,28 +1,22 @@
 import Entry from '../components/Entry.jsx'
+import courseData from '../data/courses.js'
 import './CourseResources.css'
-
-const menuItems = [
-  {
-    label: '> 1 level',
-    children: [
-      { label: '> 2 level', children: [
-        { label: '> 3 level' },
-      ]},
-    ],
-  },
-]
 
 function CourseResources() {
   return (
     <div className="course-resources">
-      <h1>课程资源</h1>
-      {menuItems.map((item) => (
-        <Entry
-          key={item.label}
-          label={item.label}
-          children={item.children}
-        />
-      ))}
+      <h1 className="course-resources-title">课程资源</h1>
+      <div className="course-resources-list">
+        {courseData.map((item) => (
+          <Entry
+            key={item.id}
+            title={item.title}
+            items={item.children}
+            url={item.url}
+            level={1}
+          />
+        ))}
+      </div>
     </div>
   )
 }

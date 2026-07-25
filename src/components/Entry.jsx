@@ -1,39 +1,57 @@
 import { useState } from 'react'
-import { Link } from 'react-router-dom'
 import './Entry.css'
 
-function Entry({ label, to, children, parentEntry }) {
-  const [open, setOpen] = useState(false)
-  const hasChildren = children && children.length > 0
-  const isChild = !!parentEntry
+function Entry({ title, items, level = 1, url }) {
+  const isBranch = Array.isArray(items) && items.length > 0
+  const isLeaf = !!url
+  const [expanded, setExpanded] = useState(false)
 
-  const handleClick = (e) => {
-    if (hasChildren) {
-      e.preventDefault()
-      setOpen(!open)
+  const handleClick = () => {
+    if (isBranch) {
+      setExpanded(!expanded)
     }
   }
 
-  return (
-    <Link
-      to={to || '#'}
-      className={`entry${isChild ? ' entry--child' : ''}`}
-      onClick={handleClick}
-    >
-      <div className="entry-label">{label}</div>
+  const levelClass = `entry-level-${Math.min(level, 4)}`
 
-      {hasChildren && open && (
-        <div className="entry-dropdown" onClick={(e) => e.stopPropagation()}>
-          {children.map((child) => (
+  if (isLeaf) {
+    return (
+      <div className={`entry entry-leaf ${levelClass}`}>
+        <a
+          href={url}
+          className="entry-header entry-link"
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          <span className="entry-title">{title}</span>
+          <span className="entry-icon entry-external-icon">↗</span>
+        </a>
+      </div>
+    )
+  }
+
+  return (
+    <div className={`entry entry-branch ${levelClass}`}>
+      <div className="entry-header" onClick={handleClick} role="button" tabIndex={0}>
+        <span className="entry-title">{title}</span>
+        {isBranch && (
+          <span className={`entry-chevron ${expanded ? 'expanded' : ''}`}>▶</span>
+        )}
+      </div>
+      <div className={`entry-children ${expanded ? 'open' : ''}`}>
+        <div className="entry-children-inner">
+          {items.map((child) => (
             <Entry
-              key={child.label}
-              {...child}
-              parentEntry={label}
+              key={child.id}
+              title={child.title}
+              items={child.children}
+              url={child.url}
+              level={level + 1}
             />
           ))}
         </div>
-      )}
-    </Link>
+      </div>
+    </div>
   )
 }
 
