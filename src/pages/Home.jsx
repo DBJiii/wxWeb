@@ -3,7 +3,6 @@ import './Home.css'
 function Home() {
   return (
     <div className="home">
-      <h1>首页</h1>
     </div>
   )
 }
