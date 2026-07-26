@@ -1,52 +1,98 @@
-import { useState, useMemo, useCallback } from 'react'
-import QuestionCard from '../components/QuestionCard'
-import ScoreBoard from '../components/ScoreBoard'
-import questionsData from '../assets/questions/questions.json'
-import './KnowledgeQA.css'
+import { useState, useMemo, useCallback } from "react";
+import QuestionCard from "../components/QuestionCard";
+import ScoreBoard from "../components/ScoreBoard";
+import questionsData from "../assets/questions/questions.json";
+import "./KnowledgeQA.css";
 
 function shuffleArray(array) {
-  const shuffled = [...array]
+  const shuffled = [...array];
   for (let i = shuffled.length - 1; i > 0; i--) {
-    const j = Math.floor(Math.random() * (i + 1))
-    ;[shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]]
+    const j = Math.floor(Math.random() * (i + 1));
+    [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
   }
-  return shuffled
+  return shuffled;
 }
 
 function KnowledgeQA() {
-  const [currentIndex, setCurrentIndex] = useState(0)
-  const [score, setScore] = useState(0)
-  const [streak, setStreak] = useState(0)
-  const [popup, setPopup] = useState(null)
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const [score, setScore] = useState(0);
+  const [streak, setStreak] = useState(0);
+  const [popup, setPopup] = useState(null);
+  const [finished, setFinished] = useState(false);
 
-  const questions = useMemo(() => shuffleArray(questionsData), [])
+  const questions = useMemo(() => shuffleArray(questionsData), []);
 
-  const handleAnswer = useCallback((isCorrect) => {
-    let points
-    if (isCorrect) {
-      const bonus = Math.min(streak, 9)
-      points = 1 + bonus
-      setScore((s) => s + points)
-      setStreak((s) => s + 1)
-    } else {
-      points = -1
-      setScore((s) => Math.max(0, s - 1))
-      setStreak(0)
-    }
-    const angle = Math.random() * 2 * Math.PI
-    const distance = 30 + Math.random() * 40
-    const pos = {
-      x: Math.cos(angle) * distance,
-      y: Math.sin(angle) * distance,
-    }
-    setPopup({ id: Date.now(), value: points, pos })
-  }, [streak])
+  const handleAnswer = useCallback(
+    (isCorrect) => {
+      let points;
+      if (isCorrect) {
+        const bonus = Math.min(streak, 9);
+        points = 1 + bonus;
+        setScore((s) => s + points);
+        setStreak((s) => s + 1);
+      } else {
+        points = -1;
+        setScore((s) => Math.max(0, s - 1));
+        setStreak(0);
+      }
+      const angle = Math.random() * 2 * Math.PI;
+      const distance = 30 + Math.random() * 40;
+      const pos = {
+        x: Math.cos(angle) * distance,
+        y: Math.sin(angle) * distance,
+      };
+      setPopup({ id: Date.now(), value: points, pos });
+    },
+    [streak],
+  );
 
   const handleNext = () => {
-    setCurrentIndex((prev) => (prev + 1) % questions.length)
+    if (currentIndex + 1 >= questions.length) {
+      setFinished(true);
+    } else {
+      setCurrentIndex((prev) => prev + 1);
+    }
+  };
+
+  const handleRestart = () => {
+    setCurrentIndex(0);
+    setScore(0);
+    setStreak(0);
+    setPopup(null);
+    setFinished(false);
+  };
+
+  if (finished) {
+    const maxScore = questions.length * 10;
+    const pct = Math.round((score / maxScore) * 100);
+
+    return (
+      <div className="knowledge-qa">
+        <h1 className="qa-title">知识问答</h1>
+        <div className="qa-completion">
+          <div className="completion-icon">🎉</div>
+          <h2 className="completion-title">
+            没想到真的有人完成了所有题目!欣慰(*ˊᗜˋ*)
+          </h2>
+          <p className="completion-sub">
+            你已完成全部 {questions.length} 道题目，强大(゜∀゜)ﾉ✧彡
+          </p>
+          <div className="completion-score">
+            <span className="completion-score-value">{score}</span>
+            <span className="completion-score-label">分</span>
+          </div>
+          <p className="completion-pct">
+            满分 {maxScore} 分，正确率 {pct}%
+          </p>
+          <button className="restart-button" onClick={handleRestart}>
+            再来一轮
+          </button>
+        </div>
+      </div>
+    );
   }
 
-  const currentQuestion = questions[currentIndex]
+  const currentQuestion = questions[currentIndex];
 
   return (
     <div className="knowledge-qa">
@@ -65,7 +111,7 @@ function KnowledgeQA() {
         />
       </div>
     </div>
-  )
+  );
 }
 
-export default KnowledgeQA
+export default KnowledgeQA;
