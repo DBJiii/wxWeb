@@ -1,7 +1,7 @@
-import { useState } from 'react'
+import { memo, useState } from 'react'
 import './Entry.css'
 
-function Entry({ title, items, level = 1, url }) {
+const Entry = memo(function Entry({ title, items, level = 1, url }) {
   const isBranch = Array.isArray(items) && items.length > 0
   const isLeaf = !!url
   const [expanded, setExpanded] = useState(false)
@@ -53,6 +53,6 @@ function Entry({ title, items, level = 1, url }) {
       </div>
     </div>
   )
-}
+})
 
 export default Entry

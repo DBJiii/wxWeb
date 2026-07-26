@@ -1,10 +1,12 @@
+import { lazy } from 'react'
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 import App from './App.jsx'
-import Home from './pages/Home.jsx'
-import CourseResources from './pages/CourseResources.jsx'
-import DeepKnowledge from './pages/DeepKnowledge.jsx'
-import ScienceNews from './pages/ScienceNews.jsx'
-import KnowledgeQA from './pages/KnowledgeQA.jsx'
+
+const Home = lazy(() => import('./pages/Home.jsx'))
+const CourseResources = lazy(() => import('./pages/CourseResources.jsx'))
+const DeepKnowledge = lazy(() => import('./pages/DeepKnowledge.jsx'))
+const ScienceNews = lazy(() => import('./pages/ScienceNews.jsx'))
+const KnowledgeQA = lazy(() => import('./pages/KnowledgeQA.jsx'))
 
 const router = createBrowserRouter([
   {

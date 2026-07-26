@@ -1,7 +1,7 @@
-import { useState } from 'react'
+import { memo, useState } from 'react'
 import './WikiEntry.css'
 
-function WikiEntry({ title, image, description, url, defaultExpanded = false }) {
+const WikiEntry = memo(function WikiEntry({ title, image, description, url, defaultExpanded = false }) {
   const [expanded, setExpanded] = useState(defaultExpanded)
 
   return (
@@ -33,6 +33,6 @@ function WikiEntry({ title, image, description, url, defaultExpanded = false }) 
       </div>
     </div>
   )
-}
+})
 
 export default WikiEntry

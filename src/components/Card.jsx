@@ -1,3 +1,4 @@
+import { memo } from 'react'
 import { Link } from 'react-router-dom'
 import './Card.css'
 
@@ -10,4 +11,4 @@ function Card({ image, title, to }) {
   )
 }
 
-export default Card
+export default memo(Card)
