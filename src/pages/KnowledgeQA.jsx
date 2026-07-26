@@ -69,7 +69,7 @@ function KnowledgeQA() {
   );
 
   const handleNext = () => {
-    if (!specialDisabledRef.current && Math.random() < 0.5) {
+    if (!specialDisabledRef.current && Math.random() < 0.01) {
       specialRef.current = true;
       setShowSpecial(true);
       return;
