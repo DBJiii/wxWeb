@@ -3,7 +3,7 @@ import './QuestionCard.css'
 
 const OPTION_LABELS = ['A', 'B', 'C', 'D']
 
-function QuestionCard({ question, onNext, onAnswer }) {
+function QuestionCard({ question, onNext, onAnswer, correctAnswers }) {
   const [selectedOption, setSelectedOption] = useState(null)
   const [status, setStatus] = useState('unanswered')
   const [animationState, setAnimationState] = useState('entering')
@@ -14,12 +14,19 @@ function QuestionCard({ question, onNext, onAnswer }) {
     return () => clearTimeout(timer)
   }, [])
 
+  const isCorrectAnswer = (index) => {
+    if (correctAnswers) {
+      return correctAnswers.includes(index)
+    }
+    return index === question.answer
+  }
+
   const handleOptionClick = (index) => {
     if (status !== 'unanswered') return
-    const isCorrect = index === question.answer
+    const correct = isCorrectAnswer(index)
     setSelectedOption(index)
-    setStatus(isCorrect ? 'correct' : 'wrong')
-    if (onAnswer) onAnswer(isCorrect)
+    setStatus(correct ? 'correct' : 'wrong')
+    if (onAnswer) onAnswer(correct, index)
   }
 
   const handleNext = () => {
@@ -34,7 +41,7 @@ function QuestionCard({ question, onNext, onAnswer }) {
   const getOptionClass = (index) => {
     let cls = 'question-card-option'
     if (status !== 'unanswered') {
-      if (index === question.answer) {
+      if (isCorrectAnswer(index)) {
         cls += ' option-correct'
       } else if (index === selectedOption && status === 'wrong') {
         cls += ' option-wrong'

@@ -1,4 +1,4 @@
-import { useState, useMemo, useCallback } from "react";
+import { useState, useMemo, useCallback, useRef } from "react";
 import QuestionCard from "../components/QuestionCard";
 import ScoreBoard from "../components/ScoreBoard";
 import questionsData from "../assets/questions/questions.json";
@@ -19,11 +19,33 @@ function KnowledgeQA() {
   const [streak, setStreak] = useState(0);
   const [popup, setPopup] = useState(null);
   const [finished, setFinished] = useState(false);
+  const [showSpecial, setShowSpecial] = useState(false);
+  const specialRef = useRef(false);
+  const specialDisabledRef = useRef(false);
 
-  const questions = useMemo(() => shuffleArray(questionsData), []);
+  const normalQuestions = useMemo(
+    () => shuffleArray(questionsData.filter((q) => q.id !== 265)),
+    [],
+  );
+
+  const specialQuestion = useMemo(
+    () => questionsData.find((q) => q.id === 265),
+    [],
+  );
 
   const handleAnswer = useCallback(
-    (isCorrect) => {
+    (isCorrect, optionIndex) => {
+      if (specialRef.current) {
+        if (optionIndex === 0) {
+          setFinished(true);
+        } else {
+          specialRef.current = false;
+          specialDisabledRef.current = true;
+          setShowSpecial(false);
+          setCurrentIndex((prev) => prev);
+        }
+        return;
+      }
       let points;
       if (isCorrect) {
         const bonus = Math.min(streak, 9);
@@ -47,7 +69,12 @@ function KnowledgeQA() {
   );
 
   const handleNext = () => {
-    if (currentIndex + 1 >= questions.length) {
+    if (!specialDisabledRef.current && Math.random() < 0.5) {
+      specialRef.current = true;
+      setShowSpecial(true);
+      return;
+    }
+    if (currentIndex + 1 >= normalQuestions.length) {
       setFinished(true);
     } else {
       setCurrentIndex((prev) => prev + 1);
@@ -60,10 +87,13 @@ function KnowledgeQA() {
     setStreak(0);
     setPopup(null);
     setFinished(false);
+    setShowSpecial(false);
+    specialRef.current = false;
+    specialDisabledRef.current = false;
   };
 
   if (finished) {
-    const maxScore = questions.length * 10;
+    const maxScore = normalQuestions.length * 10;
     const pct = Math.round((score / maxScore) * 100);
 
     return (
@@ -75,7 +105,7 @@ function KnowledgeQA() {
             没想到真的有人完成了所有题目!欣慰(*ˊᗜˋ*)
           </h2>
           <p className="completion-sub">
-            你已完成全部 {questions.length} 道题目，强大(゜∀゜)ﾉ✧彡
+            你已完成全部 {normalQuestions.length} 道题目，强大(゜∀゜)ﾉ✧彡
           </p>
           <div className="completion-score">
             <span className="completion-score-value">{score}</span>
@@ -92,7 +122,9 @@ function KnowledgeQA() {
     );
   }
 
-  const currentQuestion = questions[currentIndex];
+  const currentQuestion = showSpecial
+    ? specialQuestion
+    : normalQuestions[currentIndex];
 
   return (
     <div className="knowledge-qa">
@@ -104,8 +136,9 @@ function KnowledgeQA() {
       />
       <div className="qa-card-wrapper">
         <QuestionCard
-          key={currentQuestion.id}
+          key={showSpecial ? "special" : currentQuestion.id}
           question={currentQuestion}
+          correctAnswers={showSpecial ? [0, 1] : undefined}
           onNext={handleNext}
           onAnswer={handleAnswer}
         />
