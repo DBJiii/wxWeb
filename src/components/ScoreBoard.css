@@ -17,6 +17,35 @@
   font-variant-numeric: tabular-nums;
 }
 
+.score-roll {
+  display: inline-block;
+  position: relative;
+  overflow: hidden;
+  vertical-align: bottom;
+}
+
+.score-roll-out {
+  position: absolute;
+  top: 0;
+  left: 0;
+  animation: roll-out 0.45s ease-in forwards;
+}
+
+.score-roll-in {
+  display: inline-block;
+  animation: roll-in 0.45s ease-out forwards;
+}
+
+@keyframes roll-out {
+  0%   { transform: translateY(0); opacity: 1; }
+  100% { transform: translateY(-100%); opacity: 0; }
+}
+
+@keyframes roll-in {
+  0%   { transform: translateY(100%); opacity: 0; }
+  100% { transform: translateY(0); opacity: 1; }
+}
+
 .score-label {
   font-size: 0.9rem;
   color: #94a3b8;
