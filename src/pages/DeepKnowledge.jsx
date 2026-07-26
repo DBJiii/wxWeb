@@ -49,15 +49,20 @@ function DeepKnowledge() {
     <div className="deep-knowledge">
       <h1 className="deep-knowledge-title">知识深入</h1>
       <div className="deep-knowledge-list">
-        {wikiEntries.map((entry) => (
-          <WikiEntry
+        {wikiEntries.map((entry, i) => (
+          <div
             key={entry.id}
-            title={entry.title}
-            image={entry.image}
-            description={entry.description}
-            url={entry.url}
-            defaultExpanded
-          />
+            className="animate-entry"
+            style={{ animationDelay: `${i * 0.07}s` }}
+          >
+            <WikiEntry
+              title={entry.title}
+              image={entry.image}
+              description={entry.description}
+              url={entry.url}
+              defaultExpanded
+            />
+          </div>
         ))}
       </div>
     </div>

@@ -16,8 +16,14 @@ function Home() {
   return (
     <div className="home">
       <div className="home-grid">
-        {cards.map((card) => (
-          <Card key={card.to} image={card.image} title={card.title} to={card.to} />
+        {cards.map((card, i) => (
+          <div
+            key={card.to}
+            className="animate-entry"
+            style={{ animationDelay: `${i * 0.08}s` }}
+          >
+            <Card image={card.image} title={card.title} to={card.to} />
+          </div>
         ))}
       </div>
     </div>

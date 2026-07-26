@@ -54,15 +54,20 @@ function ScienceNews() {
       )}
 
       <div className="science-news-list">
-        {items.map((item) => (
-          <WikiEntry
+        {items.map((item, i) => (
+          <div
             key={item.id}
-            title={item.title}
-            image={item.image}
-            description={item.description}
-            url={item.url}
-            defaultExpanded
-          />
+            className="animate-entry"
+            style={{ animationDelay: `${i * 0.06}s` }}
+          >
+            <WikiEntry
+              title={item.title}
+              image={item.image}
+              description={item.description}
+              url={item.url}
+              defaultExpanded
+            />
+          </div>
         ))}
       </div>
 

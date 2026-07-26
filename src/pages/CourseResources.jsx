@@ -7,14 +7,19 @@ function CourseResources() {
     <div className="course-resources">
       <h1 className="course-resources-title">课程资源</h1>
       <div className="course-resources-list">
-        {courseData.map((item) => (
-          <Entry
+        {courseData.map((item, i) => (
+          <div
             key={item.id}
-            title={item.title}
-            items={item.children}
-            url={item.url}
-            level={1}
-          />
+            className="animate-entry"
+            style={{ animationDelay: `${i * 0.06}s` }}
+          >
+            <Entry
+              title={item.title}
+              items={item.children}
+              url={item.url}
+              level={1}
+            />
+          </div>
         ))}
       </div>
     </div>
