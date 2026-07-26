@@ -1,3 +1,35 @@
 .knowledge-qa {
-  /* Mobile-first styles */
+  max-width: 680px;
+  margin: 0 auto;
+  padding: 60px 16px 48px;
+}
+
+.qa-title {
+  text-align: center;
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin-bottom: 12px;
+  color: #212529;
+}
+
+.qa-card-wrapper {
+  overflow: hidden;
+  padding: 12px 8px;
+  margin: 0 -8px;
+}
+
+@media (max-width: 576px) {
+  .knowledge-qa {
+    padding: 40px 0 36px;
+  }
+
+  .qa-title {
+    font-size: 1.25rem;
+    margin-bottom: 10px;
+  }
+
+  .qa-card-wrapper {
+    padding: 16px 10px;
+    margin: 0 -10px;
+  }
 }

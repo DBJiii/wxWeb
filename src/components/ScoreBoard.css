@@ -1,0 +1,61 @@
+.score-board {
+  display: flex;
+  justify-content: center;
+  align-items: baseline;
+  gap: 4px;
+  margin-bottom: 16px;
+  padding: 28px 0;
+  position: relative;
+}
+
+.score-value {
+  font-size: 2rem;
+  font-weight: 700;
+  color: #212529;
+  line-height: 1;
+}
+
+.score-label {
+  font-size: 0.9rem;
+  color: #6c757d;
+  font-weight: 500;
+}
+
+/* Floating score popup — appears at a random spot around the score */
+.score-popup {
+  position: absolute;
+  font-size: 1.2rem;
+  font-weight: 800;
+  pointer-events: none;
+  white-space: nowrap;
+  animation: popup-float 0.9s ease-out forwards;
+}
+
+.popup-plus {
+  color: #198754;
+}
+
+.popup-minus {
+  color: #dc3545;
+}
+
+@keyframes popup-float {
+  0% {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(0.5);
+  }
+  25% {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1.2);
+  }
+  100% {
+    opacity: 0;
+    transform: translate(-50%, calc(-50% - 36px)) scale(0.8);
+  }
+}
+
+@media (max-width: 576px) {
+  .score-value {
+    font-size: 1.7rem;
+  }
+}
