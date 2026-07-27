@@ -10,13 +10,6 @@ const courseData = [
           { id: 'chemistry-courseware-1', title: '配位化学科普.pptx', url: '/ppts/配位化学科普.pptx' },
         ],
       },
-      {
-        id: 'chemistry-lab',
-        title: '实验',
-        children: [
-          { id: 'chemistry-lab-1', title: '生活中的科学.pptx', url: '/ppts/生活中的科学——三个趣味实验.pptx.zip' },
-        ],
-      },
     ],
   },
   {
