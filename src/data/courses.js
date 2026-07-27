@@ -14,7 +14,7 @@ const courseData = [
         id: 'chemistry-lab',
         title: '实验',
         children: [
-          { id: 'chemistry-lab-1', title: '生活中的科学.pptx（文件过大，需手动放置）', url: '/ppts/生活中的科学——三个趣味实验.pptx' },
+          { id: 'chemistry-lab-1', title: '生活中的科学.pptx', url: '/ppts/生活中的科学——三个趣味实验.pptx.zip' },
         ],
       },
     ],
