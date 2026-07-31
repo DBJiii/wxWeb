@@ -1,6 +1,0 @@
-name = "wxweb"
-main = "src/main.jsx"
-
-[[r2_buckets]]
-binding = "PPTS_BUCKET"     
-bucket_name = "ppts" 
